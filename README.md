@@ -61,7 +61,7 @@ python app.py
 http://<raspberry_pi_ip>:5000
 ```
 ### 📡 Monitor fish motion, water quality, and view the live video feed.
-####📊 System Architecture
+#### 📊 System Architecture
 [Camera] ---> [YOLOv5 Model] ---> [Web Interface]
                |                    
                v                    
