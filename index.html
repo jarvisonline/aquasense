@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WebSocket Video Stream</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #000;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        border: 2px solid white;
+      }
+    </style>
+  </head>
+  <body>
+    <img id="videoStream" alt="WebSocket Video Stream" />
+    <script>
+      const videoElement = document.getElementById("videoStream");
+      const socket = new WebSocket("ws://192.168.137.110:8000"); // Replace with your Raspberry Pi's IP address
+
+      socket.binaryType = "arraybuffer";
+
+      socket.onmessage = function (event) {
+        const blob = new Blob([event.data], { type: "image/jpeg" });
+        videoElement.src = URL.createObjectURL(blob);
+      };
+
+      socket.onopen = function () {
+        console.log("WebSocket connection established");
+      };
+
+      socket.onclose = function () {
+        console.log("WebSocket connection closed");
+      };
+
+      socket.onerror = function (error) {
+        console.error("WebSocket error:", error);
+      };
+    </script>
+  </body>
+</html>
